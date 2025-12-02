@@ -1,5 +1,5 @@
 export default function SectionTeam(){
-  const people = ['Kevin Chen', 'Ben (Zhefan Guo)', 'Reed Burdick', 'Kiran Sandiford'];
+  const people = ['Kevin Chen', 'Ben (Zhefan Guo)', 'Reed Burdick',];
   return (
     <section id="team" className="anchor">
       <div className="container section">

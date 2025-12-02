@@ -4,10 +4,11 @@ import { usePathname } from 'next/navigation';
 import PillNav, { PillNavItem } from './PillNav';
 
 const items: PillNavItem[] = [
-  { label: 'Home',         href: '/' },
-  { label: 'Architecture', href: '/architecture' },
-  { label: 'Team',         href: '/team' },
-  { label: 'Upload',       href: '/upload' },
+  { label: 'Home',                      href: '/' },
+  { label: 'Gallery',                   href: '/gallery' },
+  { label: 'Generate from text',        href:'/generatefromtext'},
+  { label: 'Generate from image',       href: '/generatefromimage' },
+  { label: 'viewer',                    href: '/viewer'},
 ];
 
 export default function Navbar() {

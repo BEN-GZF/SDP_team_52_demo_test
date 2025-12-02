@@ -4,12 +4,18 @@ export default function SectionHero() {
       <div className="container">
         <div className="grid-2 items-center">
           <div>
-            <h1>SDPTEAM52</h1>
-            <p style={{marginTop:12, maxWidth:560}}>
-              A lightweight demo site to showcase our image-to-3D pipeline and project progress.
+            <h1 className="text-[32px] font-semibold text-white">
+              UCONN - SDPTEAM52 - 3D Mesh Generation
+            </h1>
+
+            <p
+              className="text-[14px] text-white/80 leading-[1.65] mt-3"
+              style={{ maxWidth: 560 }}
+            >
+              A lightweight demo site to showcase our image-to-3D pipeline and
+              project progress.
             </p>
           </div>
-
         </div>
       </div>
     </section>

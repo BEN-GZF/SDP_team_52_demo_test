@@ -5,7 +5,6 @@ import { usePathname, useRouter } from 'next/navigation';
 
 const ORDER = ['/', '/architecture', '/team', '/upload'];
 
-// 退场动画时长（需与 CSS .page-exit 对齐）
 const EXIT_MS = 320;
 
 export default function ScrollRouter() {
@@ -18,17 +17,15 @@ export default function ScrollRouter() {
     if (lock.current) return;
     lock.current = true;
 
-    // 找到当前页容器并触发退场
     const pageEl = document.getElementById('page');
     if (pageEl) {
       pageEl.classList.remove('page-enter');
       pageEl.classList.add('page-exit');
     }
 
-    // 退场动画完成后再跳转
     window.setTimeout(() => {
       router.push(nextPath);
-      // 给一点点时间等待新页面挂载，再解锁
+
       window.setTimeout(() => { lock.current = false; }, 80);
     }, EXIT_MS);
   };
@@ -45,7 +42,7 @@ export default function ScrollRouter() {
 
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 30) return; // 触控板微微滚动忽略
+      if (Math.abs(e.deltaY) < 30) return; 
       e.deltaY > 0 ? go('down') : go('up');
     };
 
@@ -62,8 +59,8 @@ export default function ScrollRouter() {
       if (touchStartY.current == null) return;
       const endY = e.changedTouches[0]?.clientY ?? touchStartY.current;
       const dy = endY - touchStartY.current;
-      if (dy < -50) go('down'); // 上滑 -> 下页
-      if (dy >  50) go('up');   // 下滑 -> 上页
+      if (dy < -50) go('down'); 
+      if (dy >  50) go('up');   
       touchStartY.current = null;
     };
 
