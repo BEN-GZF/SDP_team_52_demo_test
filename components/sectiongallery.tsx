@@ -20,7 +20,7 @@ export default function SectionGallery() {
           }}
         >
           {[
-            "/demo.png",
+            "/demo1.png",
             "/demo2.png",
           ].map((src, idx) => (
             <div
