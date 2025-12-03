@@ -1,9 +1,8 @@
-// components/SectionGallery.tsx
 "use client";
 
 import Image from "next/image";
 
-const BASE_PATH = "/SDP_team_52_demo_test";
+const BASE_PATH = ""; 
 
 export default function SectionGallery() {
   const images = ["demo1.png", "demo2.png"];
@@ -37,11 +36,11 @@ export default function SectionGallery() {
               }}
             >
               <Image
-                src={`${BASE_PATH}/${name}`}
+                src={`/${name}`}         
                 alt={`gallery-${idx}`}
                 fill
                 style={{
-                  objectFit: "contain", 
+                  objectFit: "contain",
                   padding: 20,
                 }}
               />
