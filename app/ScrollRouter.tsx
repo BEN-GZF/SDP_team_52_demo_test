@@ -3,12 +3,28 @@
 import { useEffect, useRef } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-const ORDER = ['/', '/architecture', '/team', '/upload'];
-
+const BASE = '/SDP_team_52_demo_test';  
+const ORDER = [
+  '/', 
+  '/gallery', 
+  '/generatefromtext', 
+  '/generatefromimage',
+  '/viewer'
+];
 const EXIT_MS = 320;
 
+const normalizePath = (path: string) => {
+  if (!path) return '/';
+  if (path.startsWith(BASE)) {
+    const stripped = path.slice(BASE.length) || '/';
+    return stripped.startsWith('/') ? stripped : '/' + stripped;
+  }
+  return path;
+};
+
 export default function ScrollRouter() {
-  const pathname = usePathname() || '/';
+  const rawPathname = usePathname() || '/';
+  const pathname = normalizePath(rawPathname);   
   const router = useRouter();
   const lock = useRef(false);
   const touchStartY = useRef<number | null>(null);
@@ -24,15 +40,24 @@ export default function ScrollRouter() {
     }
 
     window.setTimeout(() => {
+      // 这里仍然用不带 base 的 path，Next 会自动加 basePath
       router.push(nextPath);
 
-      window.setTimeout(() => { lock.current = false; }, 80);
+      window.setTimeout(() => {
+        lock.current = false;
+      }, 80);
     }, EXIT_MS);
   };
 
   const go = (dir: 'up' | 'down') => {
     if (lock.current) return;
-    const idx = ORDER.indexOf(pathname);
+
+    const idx = ORDER.indexOf(pathname);  // 用处理过的 pathname
+    if (idx === -1) {
+      // 如果没匹配上，就别乱跳，直接返回
+      return;
+    }
+
     let next = idx;
     if (dir === 'down' && idx < ORDER.length - 1) next = idx + 1;
     if (dir === 'up' && idx > 0) next = idx - 1;
@@ -42,7 +67,7 @@ export default function ScrollRouter() {
 
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 30) return; 
+      if (Math.abs(e.deltaY) < 30) return;
       e.deltaY > 0 ? go('down') : go('up');
     };
 
@@ -59,8 +84,8 @@ export default function ScrollRouter() {
       if (touchStartY.current == null) return;
       const endY = e.changedTouches[0]?.clientY ?? touchStartY.current;
       const dy = endY - touchStartY.current;
-      if (dy < -50) go('down'); 
-      if (dy >  50) go('up');   
+      if (dy < -50) go('down');
+      if (dy > 50) go('up');
       touchStartY.current = null;
     };
 

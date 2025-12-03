@@ -1,8 +1,13 @@
 // components/SectionGallery.tsx
-
 "use client";
 
+import Image from "next/image";
+
+const BASE_PATH = "/SDP_team_52_demo_test";
+
 export default function SectionGallery() {
+  const images = ["demo1.png", "demo2.png"];
+
   return (
     <section id="gallery" className="anchor">
       <div className="container section">
@@ -14,47 +19,35 @@ export default function SectionGallery() {
         <div
           style={{
             display: "grid",
-            gap: 18,
+            gap: 24,
             marginTop: 20,
             gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
           }}
         >
-          {[
-            "/demo1.png",
-            "/demo2.png",
-          ].map((src, idx) => (
+          {images.map((name, idx) => (
             <div
               key={idx}
-              className="card"
               style={{
-                padding: 0,
-                overflow: "hidden",
+                position: "relative",
+                width: "100%",
+                paddingBottom: "100%", 
                 borderRadius: 16,
-                background: "rgba(255,255,255,0.04)",
+                overflow: "hidden",
+                background: "rgba(255,255,255,0.05)",
               }}
             >
-              <img
-                src={src}
+              <Image
+                src={`${BASE_PATH}/${name}`}
                 alt={`gallery-${idx}`}
+                fill
                 style={{
-                  width: "100%",
-                  height: 180,
-                  objectFit: "cover",
-                  transition: "all 0.25s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "scale(1.05)";
-                  e.currentTarget.style.opacity = "0.9";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.opacity = "1";
+                  objectFit: "contain", 
+                  padding: 20,
                 }}
               />
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
